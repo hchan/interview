@@ -1,5 +1,6 @@
 package com.henry.interview;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,20 +27,11 @@ public class BreadthFirstSearch {
 		bNode.addChild(bNode3);
 		root.addChild(bNode);
 		
-		breadthFirstSearch(root);
+		BreadthFirstSearch bfs = new BreadthFirstSearch();
+		bfs.traverse(root);
 		System.out.println("DONE");
 	}
-
-	public class PairString {
-		String first;
-		String second;
-
-		public PairString(String first, String second) {
-			this.first = first;
-			this.second = second;
-		}
-	}
-
+ 
 	public static class TreeNode<T> implements Iterable<TreeNode<T>>{
 		T data;
 		//TreeNode<T> parent;
@@ -60,7 +52,7 @@ public class BreadthFirstSearch {
 	}
 
 
-	public static void breadthFirstSearch(TreeNode root) {
+	public void traverse(TreeNode root) {
 		if (root == null)
 			return;
 		Queue<TreeNode> queue = new LinkedList<TreeNode>();
@@ -74,6 +66,47 @@ public class BreadthFirstSearch {
 			if (node.children.size() != 0) {
 				queue.addAll(node.children);
 			}
+		}
+	}
+	
+
+	// Henry's helper methods for printing
+	public void flexPrint(Object o) {
+		flexPrint(null, o);
+	}
+
+	public void flexPrint(String tag, Object o) {
+		if (tag == null) {
+			tag = "flexPrint ";
+		}
+		System.out.print(tag + " : ");
+		if (o == null) {
+			System.out.println("null");
+			return;
+		}
+		if (o instanceof List) {
+			List list = (List) o;
+			System.out.println(Arrays.toString(list.toArray()));
+		} else if (o.getClass().isArray()) {
+			try {
+				System.out.println(Arrays.toString((Object[]) o));
+			} catch (Exception e) {
+				try {
+					int[] primitives = (int[]) o;
+					Integer[] wrapped = Arrays.stream(primitives).boxed().toArray(Integer[]::new);
+					System.out.println(Arrays.toString(wrapped));
+				} catch (Exception e2) {
+					try {
+						char[] primitives = (char[]) o;
+						System.out.println(Arrays.toString(primitives));
+					} catch (Exception e3) {
+						float[] primitives = (float[]) o;
+						System.out.println(Arrays.toString(primitives));
+					}
+				}
+			}
+		} else {
+			System.out.println(o);
 		}
 	}
 }

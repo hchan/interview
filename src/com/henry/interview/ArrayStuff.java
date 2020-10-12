@@ -1,6 +1,7 @@
 package com.henry.interview;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ArrayStuff {
 
@@ -27,6 +28,18 @@ public class ArrayStuff {
 		
 		float[] floatnums = new float[] { 3.1f, 4.2f, 37.9f };
 		arrayStuff.flexPrint("floatnums", floatnums);
+		
+		List<String> listWithDups = Arrays.asList("a", "c", "a", "c", "b", "d", "a");
+		arrayStuff.flexPrint("listWithDups", listWithDups);
+		
+		List<String> noDups = arrayStuff.removeDuplicates(listWithDups);
+		arrayStuff.flexPrint("noDups", noDups);
+
+		List copyList = new ArrayList(listWithDups); 
+		System.out.println(listWithDups.equals(copyList));
+		listWithDups.set(0, "A");
+		System.out.println(listWithDups.equals(copyList));
+
 	}
 
 	// Henry's helper methods for printing
@@ -65,4 +78,7 @@ public class ArrayStuff {
 		}
 	}
 
+	public List removeDuplicates(List list) {
+		return (List) list.stream().distinct().collect(Collectors.toList());
+	}
 }

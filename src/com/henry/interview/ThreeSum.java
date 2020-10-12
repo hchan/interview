@@ -1,6 +1,7 @@
 package com.henry.interview;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Collectors.*;
 
 public class ThreeSum {
@@ -8,31 +9,42 @@ public class ThreeSum {
 	public static void main(String[] args) {
 		ThreeSum soln = new ThreeSum();
 		try {
-			Object ans = soln.solve(new int[] {-1,0,1,2,-1,-4});
-			//System.out.println(ans);
+			Object ans = soln.solve(new int[] { -1, 0, 1, 2, -1, -4 });
+			System.out.println(ans);
+			ans = soln.solve(new int[] { });
+			System.out.println(ans);
+			ans = soln.solve(new int[] {0 });
+			System.out.println(ans);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	private List<List<Integer>>  solve(int[] nums) {
+	private List<List<Integer>> solve(int[] nums) {
+		List<List<Integer>> retval = new ArrayList<List<Integer>>();
 		int index = 0;
 		for (int num : nums) {
 			int target = 0 - num;
-			//int[] twoSumNums = new int[nums.length-1];
-			//System.arraycopy(nums, 1, twoSumNums, 0, nums.length-1);
-			//flexPrint("target", target);
-			//flexPrint("twoSumNums", twoSumNums);
+			// int[] twoSumNums = new int[nums.length-1];
+			// System.arraycopy(nums, 1, twoSumNums, 0, nums.length-1);
+			// flexPrint("target", target);
+			// flexPrint("twoSumNums", twoSumNums);
 			List<Integer> twoSumSoln = solveTwoSum(nums, target);
-			//flexPrint("solveTwoSum " + num + "->", twoSumNums);
+			// flexPrint("solveTwoSum " + num + "->", twoSumNums);
 			if (twoSumSoln != null) {
-				if (index != twoSumSoln.get(0) && index != twoSumSoln.get(1) && twoSumSoln.get(0) != twoSumSoln.get(1)) {
-					flexPrint("zzz", new int[]{ nums[index], nums[twoSumSoln.get(0)], nums[twoSumSoln.get(1)]});
+				if (index != twoSumSoln.get(0) && index != twoSumSoln.get(1)
+						&& twoSumSoln.get(0) != twoSumSoln.get(1)) {
+					List<Integer> childList = Arrays.asList(nums[index], nums[twoSumSoln.get(0)],
+							nums[twoSumSoln.get(1)]);
+					Collections.sort(childList);
+					retval.add(childList);
 				}
 			}
 			index++;
 		}
-		return null;
+
+		retval = retval.stream().distinct().collect(Collectors.toList());
+		return retval;
 	}
 
 	private List<Integer> solveTwoSum(int[] nums, int target) {
@@ -65,7 +77,7 @@ public class ThreeSum {
 		if (tag == null) {
 			tag = "flexPrint ";
 		}
-		
+
 		System.out.print(tag + " : ");
 		if (o == null) {
 			System.out.println("null");

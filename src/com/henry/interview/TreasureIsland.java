@@ -1,70 +1,144 @@
 package com.henry.interview;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Stack;
 
 import com.henry.interview.BreadthFirstSearch.TreeNode;
 
 public class TreasureIsland {
-	public static int treasureIsland(char[][] island) {
-		if (island == null || island.length == 0) return 0;
-
-		int steps = 0;
-		Queue<Coordinate> queue = new LinkedList<>();
-		queue.add(new Coordinate(0, 0));
-		boolean[][] visited = new boolean[island.length][island[0].length];
-		visited[0][0] = true;
-		int[][] dirs = new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
-
-		// bfs
-		while (!queue.isEmpty()) {
-
-			int size = queue.size();
-			for (int i = 0; i < size; i++) {
-				Coordinate coordinate = queue.poll();
-				int x = coordinate.x;
-				int y = coordinate.y;
-				if (island[x][y] == 'X') return steps;
-
-				for (int[] dir : dirs) {
-					int newX = x + dir[0];
-					int newY = y + dir[1];
-
-					if (newX >= 0 && newX < island.length && newY >= 0 && newY < island[0].length &&
-							island[newX][newY] != 'D' && !visited[newX][newY]) {
-						queue.add(new Coordinate(newX, newY));
-						visited[newX][newY] = true;
-					}
+	
+	public List<Integer> solve(char[][] matrix) {
+		List<Integer> sizes = new ArrayList<Integer>();
+		boolean[][] visited = new boolean[matrix.length][matrix[0].length];
+		
+		/*
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix[0].length; j++) {
+				if (visited[i][j]) {
+					continue;
 				}
+				traverseNode(i, j, matrix, visited, sizes);
 			}
-			steps++;
 		}
-
-		return 0;
-
-
+		*/
+		traverseNode(0, 0, matrix, visited, sizes);
+		return sizes;
 	}
 
+	public void traverseNode(int i, int j, char[][] matrix, boolean[][] visited, List<Integer> sizes) {
+		int shortestRoute = -1;
+
+		Stack<Integer[]> nodesToExplore = new Stack<Integer[]>();
+		
+		nodesToExplore.push(new Integer[] { i, j });
+		while (!nodesToExplore.empty()) {
+			Integer[] currentNode = nodesToExplore.pop();
+			
+			i = currentNode[0];
+			j = currentNode[1];
+			if (visited[i][j]) {
+				continue;
+			}
+
+			if (matrix[i][j] == 'D') {
+				continue;
+			}
+			shortestRoute++;
+			flexPrint("i : " + i + ", j : " +j, matrix[i][j]);
+
+			
+			if (matrix[i][j] == 'X') {
+				sizes.add(shortestRoute);
+				break;
+			}
+			
+			
+			visited[i][j] = true;
+			
+			List<Integer[]> unvisitedNeighbors = getUnvisitedNeighbors(i, j, matrix, visited);
+			for (Integer[] neighbor : unvisitedNeighbors) {
+				nodesToExplore.add(neighbor);
+			}
+		}
+
+	
+	}
+
+	public List<Integer[]> getUnvisitedNeighbors(
+			int i, int j, char[][] matrix, boolean[][] visited) {
+		List<Integer[]> unvisitedNeighbors = new ArrayList<Integer[]>();
+		if (i > 0 && !visited[i - 1][j]) {
+			unvisitedNeighbors.add(new Integer[] { i - 1, j });
+		}
+		if (i < matrix.length - 1 && !visited[i + 1][j]) {
+			unvisitedNeighbors.add(new Integer[] { i + 1, j });
+		}
+		if (j > 0 && !visited[i][j - 1]) {
+			unvisitedNeighbors.add(new Integer[] { i, j - 1 });
+		}
+		if (j < matrix[0].length - 1 && !visited[i][j + 1]) {
+			unvisitedNeighbors.add(new Integer[] { i, j + 1 });
+		}
+		return unvisitedNeighbors;
+	}
+	
+
+	
 	public static void main(String[] args) {
 		char[][] island = new char[][]{
-				{'O', 'O', 'O', 'O'},
+				{'0', 'O', 'O', 'O'},
 				{'D', 'O', 'D', 'O'},
 				{'O', 'O', 'O', 'O'},
 				{'X', 'D', 'D', 'O'}
 		};
-		int result = TreasureIsland.treasureIsland(island);
-		System.out.println(String.format("%s (expect 5)", result));
+		TreasureIsland soln = new TreasureIsland();
+		soln.flexPrint(soln.solve(island));
+	}
+	
+
+	// Henry's helper methods for printing
+	public void flexPrint(Object o) {
+		flexPrint(null, o);
 	}
 
-	static class Coordinate {
-		int x;
-		int y;
-
-		Coordinate(int x, int y) {
-			this.x = x;
-			this.y = y;
+	public void flexPrint(String tag, Object o) {
+		if (tag == null) {
+			tag = "flexPrint ";
+		}
+		System.out.print(tag + " : ");
+		if (o == null) {
+			System.out.println("null");
+			return;
+		}
+		if (o instanceof List) {
+			List list = (List) o;
+			System.out.println(Arrays.toString(list.toArray()));
+		} else if (o.getClass().isArray()) {
+			try {
+				System.out.println(Arrays.toString((Object[]) o));
+			} catch (Exception e) {
+				try {
+					int[] primitives = (int[]) o;
+					Integer[] wrapped = Arrays.stream(primitives).boxed().toArray(Integer[]::new);
+					System.out.println(Arrays.toString(wrapped));
+				} catch (Exception e2) {
+					try {
+						char[] primitives = (char[]) o;
+						System.out.println(Arrays.toString(primitives));
+					} catch (Exception e3) {
+						float[] primitives = (float[]) o;
+						System.out.println(Arrays.toString(primitives));
+					}
+				}
+			}
+		} else {
+			System.out.println(o);
 		}
 	}
 }
+

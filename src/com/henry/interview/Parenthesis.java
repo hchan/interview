@@ -3,20 +3,64 @@ package com.henry.interview;
 import java.util.*;
 import java.util.stream.Collectors.*;
 
-public class Solution {
+public class Parenthesis {
 
 	public static void main(String[] args) {
-		Solution soln = new Solution();
+		Parenthesis soln = new Parenthesis();
 		try {
-			Object ans = soln.solve(2, new String[] {}, new String[] {});
+			Object ans = null;
+		
+			ans = soln.solve("()");
 			soln.flexPrint("ans", ans);
+			ans = soln.solve("()[]{}");
+			soln.flexPrint("ans", ans);
+			ans = soln.solve("(]");
+			soln.flexPrint("ans", ans);
+			ans = soln.solve("([)]");
+			soln.flexPrint("ans", ans);
+			
+			ans = soln.solve("{[]}");
+			soln.flexPrint("ans", ans);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	private List<String> solve(int k, String[] keywords, String[] reviews) {
-		return new ArrayList<String>(Arrays.asList("a", "b"));
+	private boolean solve(String str) {
+		
+		
+		Stack<Character> openParenthesisStack = new Stack<Character>();
+		
+		for (int i = 0; i < str.length(); i++) {
+			char ch = str.charAt(i);
+			if  (ch == '}'  || ch == ']' || ch == ')' ) {
+				
+				
+				char lastPop = '\0';
+				
+				try {
+					lastPop = openParenthesisStack.pop();
+				} catch (EmptyStackException e) {
+					return false;
+				}
+			
+				if (lastPop == '{' && ch != '}') {
+					return false;
+				}
+				if (lastPop == '[' && ch != ']') {
+					return false;
+				}
+				if (lastPop == '(' && ch != ')') {
+					return false;
+				}
+			}
+			if  (ch == '{'  || ch == '[' || ch == '(' ) {
+			
+				openParenthesisStack.add(ch);
+			}
+		}
+		return true;
 	}
 
 	// Henry's helper methods for printing

@@ -22,11 +22,11 @@ public class Solution {
 
 
 	// Henry's helper methods for printing
-	public void flexPrint(Object o) {
+	public static void flexPrint(Object o) {
 		flexPrint(null, o);
 	}
 
-	public void flexPrint(String tag, Object o) {
+	public static void flexPrint(String tag, Object o) {
 		if (tag == null) {
 			tag = "flexPrint ";
 		}

@@ -1,4 +1,4 @@
-package com.henry.interview;
+package com.henry.interview.bfs;
 
 import java.util.*;
 // https://www.algoexpert.io/questions/River%20Sizes

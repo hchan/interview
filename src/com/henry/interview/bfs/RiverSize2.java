@@ -35,17 +35,6 @@ public class RiverSize2 {
     
     private static Queue<Point> collectSources(int[][] grid, int row, int col) {
         Queue<Point> sources = new ArrayDeque<>();
-        
-        /*
-        for (int r = 0; r < grid.length; r++) {
-        	
-            for (int c = 0; c < grid[0].length; c++) {
-              // if (grid[r][c] == 'S') {
-                    sources.add(new Point(r, c));
-             //   }
-            }
-        }
-        */
         sources.add(new Point(row,col));
         return sources;
     }

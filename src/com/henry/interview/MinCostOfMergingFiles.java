@@ -40,33 +40,33 @@ public class MinCostOfMergingFiles {
 		return solve(queue, sumSoFar);
 	}
 
-	public void insertIntoSortedList(int num, List<Integer> list) {
+	public int insertIntoSortedList(int num, List<Integer> list) {
 		if (list == null || list.isEmpty()) {
-			return;
+			return -1;
 		}
 		
 		if (list.size() == 0) {
 			list.add(0, num);
-			return;
+			return 0;
 		}
 		for (int i = 0; i < list.size(); i++) {
 			if (i + 1 == list.size()) {
 				list.add(num);
-				return;
+				return i;
 			}
 			if (i == 0 && num < list.get(0)) {
 				list.add(0, num);
-				return;
+				return 0;
 			}
 			Integer current = list.get(i);
 			Integer currentNext = list.get(i + 1);
 		
 			if (num > current && num <= currentNext) {
 				list.add(i + 1, num);
-				return;
+				return i;
 			}
 		}
-		
+		return -1;
 	}
 
 

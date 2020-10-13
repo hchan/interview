@@ -4,27 +4,33 @@ import java.util.*;
 public class RiverSize2 {
     private static final int[][] DIRS = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
 
-    public static int solve(int[][] grid,  int row, int col) {
+    public static int solve(int[][] grid,  boolean[][] visited, int row, int col) {
     	if (grid[row][col] == 0) return 0;
         Queue<Point> q = collectSources(grid, row, col);
         int retval = 0;
-        for (int dist = 0; !q.isEmpty(); dist++) {
-            for (int sz = q.size(); sz > 0; sz--) {
+        while ( !q.isEmpty()) {
                 Point p = q.poll();
-                grid[p.r][p.c] = 0; // mark as visited
+                //grid[p.r][p.c] = 0; // mark as visited
+                if (grid[p.r][p.c] == 0) {
+    				continue;
+    			}
+                if (visited[p.r][p.c]) {
+    				continue;
+    			}
+                visited[p.r][p.c] = true; // mark as visited
+                retval++;
                 for (int[] dir : DIRS) {
                     int r = p.r + dir[0];
                     int c = p.c + dir[1];
-                    if (isSafe(grid, r, c)) {
+                    if (isSafe(grid, visited, r, c)) {
                         q.add(new Point(r, c));
                     }
                 }
                 
-            }
-           retval = dist;
+            
         }
      
-        return retval+1;
+        return retval;
     }
     
     private static Queue<Point> collectSources(int[][] grid, int row, int col) {
@@ -44,8 +50,8 @@ public class RiverSize2 {
         return sources;
     }
     
-    private static boolean isSafe(int[][] grid, int r, int c) {
-        return r >= 0 && r < grid.length && c >= 0 && c < grid[0].length && grid[r][c] != 0;
+    private static boolean isSafe(int[][] grid, boolean[][] visited, int r, int c) {
+        return r >= 0 && r < grid.length && c >= 0 && c < grid[0].length && !visited[r][c];
     }
     
     private static class Point {
@@ -76,10 +82,14 @@ public class RiverSize2 {
             {0, 0, 1, 0, 1},
             {1, 0, 1, 0, 1},
             {1, 0, 1, 1, 0}}; 
+		boolean[][] visited = new boolean[grid.length][grid[0].length];
+
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[0].length; j++) {
-
-				int dist = solve(grid, i, j);
+				if (visited[i][j]) {
+					continue;
+				}
+				int dist = solve(grid, visited, i, j);
 				if (dist > 0) {
 					flexPrint(i + "," + j + ": dist", dist);
 				}
@@ -88,11 +98,15 @@ public class RiverSize2 {
     }
     
     public static List<Integer> riverSizes(int[][] matrix) {
+		boolean[][] visited = new boolean[matrix.length][matrix[0].length];
+
     	List<Integer> retval = new ArrayList<Integer>();
     	for (int i = 0; i < matrix.length; i++) {
 			for (int j = 0; j < matrix[0].length; j++) {
-
-				int dist = solve(matrix, i, j);
+				if (visited[i][j]) {
+					continue;
+				}
+				int dist = solve(matrix, visited, i, j);
 				if (dist > 0) {
 					retval.add(dist);
 				}

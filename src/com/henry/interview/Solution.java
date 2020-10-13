@@ -38,8 +38,19 @@ public class Solution {
 			System.out.println(Arrays.toString(list.toArray()));
 		} else if (o.getClass().isArray()) {
 			try {
-				System.out.println(Arrays.toString((Object[]) o));
-			} catch (Exception e) {
+				try {
+					int[][] intArrArr = (int[][]) o;
+					System.out.println();
+					for (int i = 0; i < intArrArr.length; i++) {
+						for (int j = 0; j < intArrArr[0].length; j++) {
+							System.out.print(intArrArr[i][j] + " ");
+						}
+						System.out.println();
+					}
+				} catch (Exception e) {
+					System.out.println(Arrays.toString((Object[]) o));
+				}
+			} catch (Exception e1) {
 				try {
 					int[] primitives = (int[]) o;
 					Integer[] wrapped = Arrays.stream(primitives).boxed().toArray(Integer[]::new);

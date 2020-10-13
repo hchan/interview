@@ -1,25 +1,41 @@
-package com.henry.interview.problem2;
+package com.henry.interview;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors.*;
 
-public class Solution {
+public class ReverseInteger {
 
 	public static void main(String[] args) {
-		Solution soln = new Solution();
+		ReverseInteger soln = new ReverseInteger();
 		try {
-			Object ans = soln.solve(2, new String[] {}, new String[] {});
-			soln.flexPrint("soln", ans);
+			Object ans = soln.solve(453489002);
+			soln.flexPrint("ans", ans);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	private List<String> solve(int k, String[] keywords, String[] reviews) {
-		return new ArrayList<String>(Arrays.asList("a", "b"));
+	private int solve(int num) {
+		int retval = 0;
+		int quotient = Integer.MAX_VALUE;
+		int mod = 0;
+		Stack<Integer> stack = new Stack<Integer>();
+		while (quotient > 0) {
+			quotient = num / 10;
+			mod = num % 10;
+			num = quotient;
+			stack.push(mod);
+		}
+		flexPrint(stack);
+		int multiplier = 1;
+		while (stack.size() > 0) {
+			int pop = stack.pop();
+			int temp = pop*multiplier;
+			multiplier*=10;
+			retval += temp;
+		}
+		return retval;
 	}
-
 
 	// Henry's helper methods for printing
 	public void flexPrint(Object o) {
@@ -40,19 +56,8 @@ public class Solution {
 			System.out.println(Arrays.toString(list.toArray()));
 		} else if (o.getClass().isArray()) {
 			try {
-				try {
-					int[][] intArrArr = (int[][]) o;
-					System.out.println();
-					for (int i = 0; i < intArrArr.length; i++) {
-						for (int j = 0; j < intArrArr[0].length; j++) {
-							System.out.print(intArrArr[i][j] + " ");
-						}
-						System.out.println();
-					}
-				} catch (Exception e) {
-					System.out.println(Arrays.toString((Object[]) o));
-				}
-			} catch (Exception e1) {
+				System.out.println(Arrays.toString((Object[]) o));
+			} catch (Exception e) {
 				try {
 					int[] primitives = (int[]) o;
 					Integer[] wrapped = Arrays.stream(primitives).boxed().toArray(Integer[]::new);
@@ -71,4 +76,5 @@ public class Solution {
 			System.out.println(o);
 		}
 	}
+
 }

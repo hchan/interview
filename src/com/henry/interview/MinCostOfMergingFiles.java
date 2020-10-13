@@ -34,23 +34,41 @@ public class MinCostOfMergingFiles {
 		}
 		flexPrint("before", queue);
 
-		insertIntoSortedQueue(tempComp, queue); // O(n) operation
+		insertIntoSortedList(tempComp, queue); // O(n) operation
 		flexPrint("after", queue);
 
 		return solve(queue, sumSoFar);
 	}
 
-	private void insertIntoSortedQueue(int num, ArrayList<Integer> queue) {
-		for(int i = 0; i < queue.size(); i++)
-		{
-		  Integer current = queue.get(i); 
-		  if (num > current) {
-			  queue.add(i+1, num);
-			  return;
-		  }
+	public void insertIntoSortedList(int num, List<Integer> list) {
+		if (list == null || list.isEmpty()) {
+			return;
 		}
-		queue.add(0, num);
+		
+		if (list.size() == 0) {
+			list.add(0, num);
+			return;
+		}
+		for (int i = 0; i < list.size(); i++) {
+			if (i + 1 == list.size()) {
+				list.add(num);
+				return;
+			}
+			if (i == 0 && num < list.get(0)) {
+				list.add(0, num);
+				return;
+			}
+			Integer current = list.get(i);
+			Integer currentNext = list.get(i + 1);
+		
+			if (num > current && num <= currentNext) {
+				list.add(i + 1, num);
+				return;
+			}
+		}
+		
 	}
+
 
 	// Henry's helper methods for printing
 	public void flexPrint(Object o) {

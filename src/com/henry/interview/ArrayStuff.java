@@ -50,14 +50,21 @@ public class ArrayStuff {
 		arrayStuff.insertIntoSortedList(6, numList);
 		arrayStuff.flexPrint("numList", numList);
 
+		List<Integer> addByIndex = new ArrayList<Integer>(10);
+		for (int i = 0; i <= 10; i++) {
+			addByIndex.add(0);
+		}
+
+		addByIndex.set(5,5);
+		flexPrint(addByIndex);
 	}
 
 	// Henry's helper methods for printing
-	public void flexPrint(Object o) {
+	public static void flexPrint(Object o) {
 		flexPrint(null, o);
 	}
 
-	public void flexPrint(String tag, Object o) {
+	public static void flexPrint(String tag, Object o) {
 		if (tag == null) {
 			tag = "flexPrint ";
 		}

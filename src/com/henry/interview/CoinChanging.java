@@ -22,10 +22,9 @@ class CoinChanging{
 	  }
 	  public static void main(String[] args) {
 
-	    int[] denominations = new int[] {2, 3, 5};
-	    int amount = 100;
+	    int[] denominations = new int[] {1, 2, 5};
+	    int amount = 7;
 	    int result = solveCoinChange(denominations, amount); 
-	    System.out.print("SolveCoinChange(" + Arrays.toString(denominations) +  ", " + amount + ") = ");
 	    System.out.print(result);
 	  }
 	}  

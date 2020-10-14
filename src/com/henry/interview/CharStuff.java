@@ -17,7 +17,9 @@ public class CharStuff {
 		}
 		
 		System.out.println(Arrays.toString(myChars.toArray()));
-
+		char ch = '9';
+		int intValOfCh = ch - '0';
+		System.out.println(intValOfCh);
 	}
 
 }

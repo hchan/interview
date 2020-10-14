@@ -15,7 +15,9 @@ public class ReverseVowels {
 			e.printStackTrace();
 		}
 	}
-
+	 public String reverseVowels(String s) {
+		 return solve(s);
+	 }
 
 	private String solve(String str) {
 		int left = 0;
@@ -23,28 +25,27 @@ public class ReverseVowels {
 		
 		char[] chars = str.toCharArray();
 		while (left < right) {
-			flexPrint(chars);
 			char leftCh = chars[left];
 			char rightCh = chars[right];
 			if (isVowel(leftCh) && isVowel(rightCh)) {
 				swap(left, right, chars);
 				left++;
 				right--;
-				continue;
+				//continue;
 			}
 			if (isVowel(leftCh) && !isVowel(rightCh)) {
 				right--;
-				continue;
+				//continue;
 			}
 			if (!isVowel(leftCh) && isVowel(rightCh)) {
 				left++;
-				continue;
+				//continue;
 			}
 			
 			if (!isVowel(leftCh) && !isVowel(rightCh)) {
 				left++;
 				right--;
-				continue;
+				//continue;
 			}
 		}
 		
@@ -59,7 +60,7 @@ public class ReverseVowels {
 	
 	private boolean isVowel(char ch) {
 		ch = Character.toLowerCase(ch);
-		return (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o');
+		return (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u');
 	}
 
 

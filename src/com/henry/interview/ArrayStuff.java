@@ -57,6 +57,11 @@ public class ArrayStuff {
 
 		addByIndex.set(5,5);
 		flexPrint(addByIndex);
+		
+		List<Integer> l1 = Arrays.asList(3,1,2);
+		List<Integer> l2 = Arrays.asList(3,1,2);
+		flexPrint(l1.equals(l2));
+		
 	}
 
 	// Henry's helper methods for printing

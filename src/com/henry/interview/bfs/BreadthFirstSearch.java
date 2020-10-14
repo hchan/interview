@@ -1,4 +1,4 @@
-package com.henry.interview;
+package com.henry.interview.bfs;
 
 import java.util.Arrays;
 import java.util.Iterator;

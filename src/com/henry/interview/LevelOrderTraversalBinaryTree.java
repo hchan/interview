@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-public class TraverseBinaryTree {
+public class LevelOrderTraversalBinaryTree {
 
 	public static void main(String[] args) {
 		TreeNode<Integer> root = new TreeNode(100);
@@ -26,7 +26,7 @@ public class TraverseBinaryTree {
 		fifty.children.add(seventyFive);
 		twoHundred.children.add(threeHundredFifty);
 
-		TraverseBinaryTree bfs = new TraverseBinaryTree();
+		LevelOrderTraversalBinaryTree bfs = new LevelOrderTraversalBinaryTree();
 		bfs.traverse(root);
 		bfs.mapLevelToList.forEach((k, v) -> {
 		

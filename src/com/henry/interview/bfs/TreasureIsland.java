@@ -1,4 +1,4 @@
-package com.henry.interview;
+package com.henry.interview.bfs;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,8 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
-
-import com.henry.interview.BreadthFirstSearch.TreeNode;
 
 public class TreasureIsland {
 	

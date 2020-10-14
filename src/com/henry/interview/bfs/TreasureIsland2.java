@@ -1,4 +1,4 @@
-package com.henry.interview;
+package com.henry.interview.bfs;
 import java.util.*;
 // https://leetcode.com/discuss/interview-question/356150
 public class TreasureIsland2 {

@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Stack;
 
 // https://leetcode.com/problems/unique-paths/
+// Time : O(M*N)
+// Space: O(M*N) ... needs to create a grid
 public class UniquePaths {
 
 	public int solve(int[][] grid) {

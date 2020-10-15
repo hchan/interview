@@ -14,101 +14,101 @@ import java.util.Queue;
 public class LevelOrderTraversalBinaryTree {
 
 	public static void main(String[] args) {
-		TreeNode<Integer> root = new TreeNode(100);
-		TreeNode<Integer> fifty = new TreeNode(50);
-		TreeNode<Integer> twoHundred = new TreeNode(200);
-		TreeNode<Integer> twentyFive = new TreeNode(25);
-		TreeNode<Integer> seventyFive = new TreeNode(75);
-		TreeNode<Integer> threeHundredFifty = new TreeNode(350);
-		root.children.add(fifty);
-		root.children.add(twoHundred);
-		fifty.children.add(twentyFive);
-		fifty.children.add(seventyFive);
-		twoHundred.children.add(threeHundredFifty);
-
-		LevelOrderTraversalBinaryTree bfs = new LevelOrderTraversalBinaryTree();
-		bfs.traverse(root);
-		bfs.mapLevelToList.forEach((k, v) -> {
+		LevelOrderTraversalBinaryTree soln = new LevelOrderTraversalBinaryTree();
 		
-			for (TreeNode node : v) {
-				System.out.print(node.data + " ");
-			}
-			System.out.println();
-		});
-		bfs.flexPrint(bfs.mapLevelToList);
-		System.out.println("DONE");
+		//Integer[] nums = new Integer[] {3,9,20,null,null,15,7};
+		Integer[] nums = new Integer[] {3,9,3,1,null,15,7, 34, 22};
+		//Integer[] nums = new Integer[] {3,9,20};
+		TreeNode root = soln.createTreeNode(nums);
+		
+		flexPrint(soln.levelOrder(root));
 	}
 
-	public static class TreeNode<T> implements Iterable<TreeNode<T>> {
-		T data;
-		// TreeNode<T> parent;
-		List<TreeNode<T>> children;
+	public static class TreeNode {
+		int val;
+		TreeNode left;
+		TreeNode right;
 
-		public TreeNode(T data) {
-			this.data = data;
-			this.children = new LinkedList<TreeNode<T>>();
+		TreeNode() {
+		}
+		
+		
+		TreeNode(int val) {
+			this.val = val;
 		}
 
-		public void addChild(TreeNode<T> child) {
-			this.children.add(child);
+		TreeNode(int val, TreeNode left, TreeNode right) {
+			this.val = val;
+			this.left = left;
+			this.right = right;
 		}
-
-		@Override
-		public Iterator<TreeNode<T>> iterator() {
-			// TODO Auto-generated method stub
+	}
+	
+	public TreeNode createTreeNode(Integer[] nums) {
+		if (nums.length == 0 && nums[0] != null) {
 			return null;
 		}
-
-	}
-
-	Map<Integer, List<TreeNode>> mapLevelToList = new LinkedHashMap<Integer, List<TreeNode>>();
-
-	public void traverse(TreeNode treeNode) {
-		traverse(treeNode, 0);
-	}
-
-	public void traverse(TreeNode treeNode, int level) {
-		if (treeNode == null)
-			return;
-
-		Queue<TreeNode> queue = new LinkedList<TreeNode>();
-		queue.clear();
-		queue.add(treeNode);
-		while (!queue.isEmpty()) {
-			TreeNode node = queue.poll();
-
-			List nodesOnLevel = mapLevelToList.get(level);
-			if (nodesOnLevel == null) {
-				nodesOnLevel = new ArrayList();
-				mapLevelToList.put(level, nodesOnLevel);
-			}
-			nodesOnLevel.add(node);
-
-			/*
-			 * if (levelToNodeCount.get(level) == null) { levelToNodeCount.put(level,
-			 * (int)treeNode.data); } else { int sum = levelToNodeCount.get(level);
-			 * levelToNodeCount.put(level, sum + (int)treeNode.data); }
-			 */
-			// if(node.left != null) queue.add(node.left);
-			// if(node.right != null) queue.add(node.right);
-			/*
-			 * if (node.children.size() != 0) { queue.addAll(node.children);
-			 * 
-			 * level++; }
-			 */
-
-			for (Object child : node.children) {
-				traverse((TreeNode) child, level + 1);
+		TreeNode root = new TreeNode(nums[0]);
+		
+		Queue<TreeNode> q = new LinkedList();
+		q.add(root);
+		
+		int counter = 1;
+		while (!q.isEmpty()) {
+			int size = q.size();
+			for (int i = 0; i < size; i++) {
+				TreeNode node = q.poll();
+				if (counter < nums.length) {
+					if (nums[counter] != null) {
+						TreeNode left = new TreeNode(nums[counter]);
+						node.left = left;
+						q.add(node.left);
+						
+					} 
+					counter++;
+				}
+				if (counter < nums.length ) {
+					if (nums[counter] != null) {
+						TreeNode right = new TreeNode(nums[counter]);
+						node.right = right;
+						q.add(node.right);
+					}
+					counter++;
+				}
 			}
 		}
+		return root;
+	}
+
+	public List<List<Integer>> levelOrder(TreeNode root) {
+
+		List<List<Integer>> list = new ArrayList();
+		if (root == null)
+			return list;
+		Queue<TreeNode> q = new LinkedList();
+		q.add(root);
+		while (!q.isEmpty()) {
+			int size = q.size();
+			List<Integer> l = new ArrayList();
+			for (int i = 0; i < size; i++) {
+				TreeNode node = q.poll();
+				l.add(node.val);
+				if (node.left != null)
+					q.add(node.left);
+				if (node.right != null)
+					q.add(node.right);
+			}
+			list.add(l);
+		}
+		return list;
 	}
 
 	// Henry's helper methods for printing
-	public void flexPrint(Object o) {
+	public static void flexPrint(Object o) {
 		flexPrint(null, o);
 	}
 
-	public void flexPrint(String tag, Object o) {
+	public static void flexPrint(String tag, Object o) {
 		if (tag == null) {
 			tag = "flexPrint ";
 		}

@@ -21,37 +21,37 @@ public class UniquePath2 {
 	}
 
 	public int solve(int[][] grid) {
-		int[][] solution = new int[grid.length][grid[0].length];
+		int[][] memo = new int[grid.length][grid[0].length];
 		if (grid[0][0] == 1) {
 			return 0;
 		} else {
-			solution[0][0] = 1;
+			memo[0][0] = 1;
 		}
 
 		// initial condition for FIRST column
 		for (int r = 1; r < grid.length; r++) {
-			if (grid[r][0] == 0 && solution[r - 1][0] == 1) {
-				solution[r][0] = 1;
+			if (grid[r][0] == 0 && memo[r - 1][0] == 1) {
+				memo[r][0] = 1;
 			}
 		}
 
 		// initial condition for FIRST ROW
 		for (int c = 1; c < grid[0].length; c++) {
-			if (grid[0][c] == 0 && solution[0][c - 1] == 1) {
-				solution[0][c] = 1;
+			if (grid[0][c] == 0 && memo[0][c - 1] == 1) {
+				memo[0][c] = 1;
 			}
 		}
 
 		for (int r = 1; r < grid.length; r++) {
 			for (int c = 1; c < grid[0].length; c++) {
 				if (grid[r][c] == 0) {
-					solution[r][c] += solution[r][c - 1];
-					solution[r][c] += solution[r - 1][c];
+					memo[r][c] += memo[r][c - 1];
+					memo[r][c] += memo[r - 1][c];
 				}
 			}
 		}
 
-		return solution[solution.length - 1][solution[0].length - 1];
+		return memo[memo.length - 1][memo[0].length - 1];
 	}
 
 }

@@ -5,6 +5,8 @@ import java.util.*;
 import com.henry.interview.bfs.BreadthFirstSearch.TreeNode;
 
 // https://leetcode.com/problems/sum-of-left-leaves/
+// Runtime: O(n);
+// Space  : O(n) worst case have to add all to the queue
 public class SumOfLeftLeaves {
 	public static class TreeNode {
 		int val;

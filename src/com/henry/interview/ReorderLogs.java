@@ -59,7 +59,8 @@ public class ReorderLogs {
 	private static boolean isDigitLog(String log) {
 		for (int i = 0; i < log.length(); i++) {
 			if (log.charAt(i) == ' ') {
-				if (log.charAt(i+1) >= '0' && log.charAt(i+1) <= '9') {
+				if (log.charAt(i+1) >= '0' && log.charAt(i+1) <= '9') { 
+					// Character.isDigit(ch)
 					return true;
 				} else {
 					return false;

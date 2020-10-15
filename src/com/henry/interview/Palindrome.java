@@ -1,5 +1,6 @@
 package com.henry.interview;
-
+// O n*n
+// O(1)
 public class Palindrome {
 
 	public static void main(String[] args) {
@@ -30,4 +31,10 @@ public class Palindrome {
 	    return R - L - 1;
 	}
 
+	public boolean isPalindrome(String text) {
+	    String clean = text.toLowerCase();
+	    StringBuffer plain = new StringBuffer(clean);
+	    StringBuffer reverse = plain.reverse();
+	    return (reverse.toString()).equals(clean);
+	}
 }

@@ -61,7 +61,13 @@ public class ArrayStuff {
 		List<Integer> l1 = Arrays.asList(3,1,2);
 		List<Integer> l2 = Arrays.asList(3,1,2);
 		flexPrint(l1.equals(l2));
+		List<Integer> l3 = new ArrayList<Integer>(l2);
+		l3.add(1, 4);
 		
+		flexPrint(l3);
+		l3.set(0, 0);
+		flexPrint(l3);
+		flexPrint(l2);
 	}
 
 	// Henry's helper methods for printing

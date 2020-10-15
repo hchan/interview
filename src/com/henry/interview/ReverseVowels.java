@@ -4,6 +4,8 @@ import java.util.*;
 
 
 // https://leetcode.com/problems/reverse-vowels-of-a-string/
+// O(n)
+// O(n)
 public class ReverseVowels {
 
 	public static void main(String[] args) {

@@ -59,25 +59,17 @@ public class ReverseLinkedList {
 		Node curr = node;
 		Node prev = null;
 		Node next = node.next;
-		/*
-		while (next != null) {
-
-			curr.next = prev;
-			prev = curr;
-			curr = next;
-			next = next.next;
-
-		}
-		*/
-		
-		while (next != null) {
-
-			curr.next = prev;
-			prev = curr;
-			curr = next;
-			next = next.next;
-		}
 	
+		
+		while (curr != null) {
+			next = curr.next;
+			curr.next = prev;
+			prev = curr;
+			curr = next;
+		}
+		
+		
+		
 		return prev;
 	}
 }

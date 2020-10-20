@@ -36,9 +36,16 @@ public class Factorial {
 		// return the List
 		return chars;
 	}
+	
+	public static int factorial2(int n) {
+		if (n <= 1) {
+			return n;
+		}
+		return n* factorial2(n-1);
+	}
 	public static void main(String[] args) {
 		for (int i = 0; i < 10; i++) {
-			System.out.println(i + ":" + factorial(i));
+			System.out.println(i + ":" + factorial2(i));
 		}
 	}
 }

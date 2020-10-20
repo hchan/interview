@@ -53,6 +53,24 @@ public class ReverseLinkedList {
 	}
 
 	private static Node reverse(Node node) {
+		if (node == null) {
+			return null;
+			
+		}
+		Node curr = node;
+		Node prev = null;
+		Node next = node.next;
+		
+		while (curr != null) {
+			next = curr.next;
+			curr.next = prev;
+			prev = curr;
+			curr = next;
+		}
+		
+		return prev;
+	}
+	private static Node reverseOld(Node node) {
 		if (node == null || node.next == null) {
 			return null;
 		}

@@ -41,7 +41,7 @@ public class MaxSubArray {
 				max_ending_here += a[i];
 			}
 
-			if (max_ending_here > max_so_far) {
+			if (max_ending_here > max_so_far) { 
 				max_so_far = max_ending_here;
 				max_start_index = startIndex;
 				max_end_index = i;

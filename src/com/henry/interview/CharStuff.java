@@ -20,6 +20,8 @@ public class CharStuff {
 		char ch = '9';
 		int intValOfCh = ch - '0';
 		System.out.println(intValOfCh);
+		
+		System.out.println('4' - '0' + 3);
 	}
 
 }

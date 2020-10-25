@@ -10,18 +10,19 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Stack;
 
 public class LevelOrderTraversalBinaryTree {
 
 	public static void main(String[] args) {
 		LevelOrderTraversalBinaryTree soln = new LevelOrderTraversalBinaryTree();
-		
-		//Integer[] nums = new Integer[] {3,9,20,null,null,15,7};
-		Integer[] nums = new Integer[] {3,9,3,1,null,15,7, 34, 22};
-		//Integer[] nums = new Integer[] {3,9,20};
+
+		// Integer[] nums = new Integer[] {3,9,20,null,null,15,7};
+		Integer[] nums = new Integer[] { 3, null, 3, 1, null, 15, 7, 34, 22 ,null,65,34, null};
+		// Integer[] nums = new Integer[] {3,9,20};
 		TreeNode root = soln.createTreeNode(nums);
-		
 		flexPrint(soln.levelOrder(root));
+		flexPrint(soln.levelOrderDfs(root));
 	}
 
 	public static class TreeNode {
@@ -31,8 +32,7 @@ public class LevelOrderTraversalBinaryTree {
 
 		TreeNode() {
 		}
-		
-		
+
 		TreeNode(int val) {
 			this.val = val;
 		}
@@ -43,16 +43,16 @@ public class LevelOrderTraversalBinaryTree {
 			this.right = right;
 		}
 	}
-	
+
 	public TreeNode createTreeNode(Integer[] nums) {
 		if (nums.length == 0 && nums[0] != null) {
 			return null;
 		}
 		TreeNode root = new TreeNode(nums[0]);
-		
+
 		Queue<TreeNode> q = new LinkedList();
 		q.add(root);
-		
+
 		int counter = 1;
 		while (!q.isEmpty()) {
 			int size = q.size();
@@ -63,11 +63,11 @@ public class LevelOrderTraversalBinaryTree {
 						TreeNode left = new TreeNode(nums[counter]);
 						node.left = left;
 						q.add(node.left);
-						
-					} 
+
+					}
 					counter++;
 				}
-				if (counter < nums.length ) {
+				if (counter < nums.length) {
 					if (nums[counter] != null) {
 						TreeNode right = new TreeNode(nums[counter]);
 						node.right = right;
@@ -79,6 +79,8 @@ public class LevelOrderTraversalBinaryTree {
 		}
 		return root;
 	}
+
+	
 
 	public List<List<Integer>> levelOrder(TreeNode root) {
 
@@ -102,6 +104,31 @@ public class LevelOrderTraversalBinaryTree {
 		}
 		return list;
 	}
+	
+	public List<List<Integer>> levelOrderDfs(TreeNode root) {
+		List<List<Integer>> retval = new ArrayList<List<Integer>>();
+		levelOrderDfs(root, retval, 0);
+		return retval;
+	}
+
+	private void levelOrderDfs(TreeNode node, List<List<Integer>> levelOrderList, int level) {
+		if (node == null) return;
+		levelOrderDfs(node.left, levelOrderList, level+1);
+		List<Integer> currentLevel = null;
+		if (level+1 > levelOrderList.size()) {
+			int listsToCreate =  level -levelOrderList.size()+1;
+			for (int i = 0; i < listsToCreate; i++) {
+				currentLevel = new ArrayList<Integer>();
+				levelOrderList.add(currentLevel);
+			}
+		}
+		currentLevel = levelOrderList.get(level);
+		
+		currentLevel.add(node.val);
+		levelOrderDfs(node.right, levelOrderList, level+1);
+	}
+
+
 
 	// Henry's helper methods for printing
 	public static void flexPrint(Object o) {

@@ -22,6 +22,9 @@ public class ArrayStuff {
 
 		int[] nums = new int[] { 3, 5, 3 };
 		arrayStuff.flexPrint("nums", nums);
+		
+		Arrays.sort(nums);
+		arrayStuff.flexPrint("nums", nums);
 
 		char[] chars = new char[] { 'c', 'o', 'o', 'l' };
 		arrayStuff.flexPrint("chars", chars);

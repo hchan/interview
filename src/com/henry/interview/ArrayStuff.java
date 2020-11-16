@@ -71,6 +71,18 @@ public class ArrayStuff {
 		l3.set(0, 0);
 		flexPrint(l3);
 		flexPrint(l2);
+		
+		int[] ints = new int[] {1,2,3};
+		List<Integer> intsList = new ArrayList<>();
+		for (int x : ints) {
+			intsList.add(x);
+		}
+		
+		Integer[] ints2 = intsList.toArray(new Integer[]{});
+		int[] ints3 = new int[] {1,2,3};
+		
+		Set<Integer> s = new HashSet();
+	// broken List<Integer> ints4 = Arrays.asList(ints3);
 	}
 
 	// Henry's helper methods for printing

@@ -7,7 +7,8 @@ public class Permutations2 {
 	  // Function to print all the permutations of str 
     static void permute(String left, String right) 
     { 
-    	if (left.length() == 0) {
+    	 if (left.length() == 0) {
+    	//if (right.length() == 4) {
     		soln.add(right);
     		return;
     	}
@@ -18,6 +19,7 @@ public class Permutations2 {
     		String preLeft = left.substring(0,i);
     		String postLeft = left.substring(i+1);
     		String newLeft = preLeft + postLeft;
+    		System.out.println(newLeft);
     		permute(newLeft,     right + curChar);
     	}
     } 
